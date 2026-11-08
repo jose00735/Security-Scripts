@@ -1,0 +1,9 @@
+# never publish key material or lab connection files
+*.key
+*.pem
+*.crt
+*.csr
+*.srl
+*.ovpn
+*.ccache
+__pycache__/

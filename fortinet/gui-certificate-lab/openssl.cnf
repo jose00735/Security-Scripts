@@ -1,0 +1,42 @@
+[ req ]
+default_bits        = 2048
+default_keyfile     = GUI.key
+distinguished_name  = req_distinguished_name
+attributes          = req_attributes
+req_extensions = req_ext
+x509_extensions     = v3_ca # The extensions to add to the self signed cert
+
+[ req_distinguished_name ]
+countryName                 = AR
+commonName                  = GUI
+
+[ usr_cert ]
+basicConstraints=CA:FALSE
+nsComment                   = "OpenSSL Generated Certificate"
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid,issuer
+
+[ v3_req ]
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+subjectAltName = @alt_names
+
+[ v3_ca ]
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer
+basicConstraints = CA:true
+keyUsage = digitalSignature, cRLSign, keyCertSign
+
+[ crl_ext ]
+authorityKeyIdentifier=keyid:always
+
+[ alt_names ]
+IP.1 = 10.97.30.1
+IP.2 = 10.10.10.1
+IP.3 = 192.168.10.1
+IP.4 = 192.168.5.
+
+[req_ext]
+subjectAltName = @alt_names
+extendedKeyUsage = serverAuth, clientAuth
+

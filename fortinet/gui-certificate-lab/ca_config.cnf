@@ -1,0 +1,63 @@
+[ ca ]
+default_ca = CA_default
+
+[ CA_default ]
+# Directory and file locations.
+dir               = ./demoCA
+certs             = $dir/certs
+crl_dir           = $dir/crl
+new_certs_dir     = $dir/newcerts
+database          = $dir/index.txt
+serial            = $dir/serial
+RANDFILE          = $dir/private/.rand
+
+# The root key and root certificate.
+private_key       = $dir/private/ca.key
+certificate       = $dir/cacert.pem
+
+# For certificate revocation lists.
+crlnumber         = $dir/crlnumber
+crl               = $dir/crl.pem
+crl_extensions    = crl_ext
+default_crl_days  = 30
+
+# Default policy for how to handle incoming CSRs.
+default_md        = sha256
+preserve          = no
+policy            = policy_any
+
+[ policy_any ]
+countryName             = optional
+stateOrProvinceName     = optional
+localityName            = optional
+organizationName        = optional
+organizationalUnitName  = optional
+commonName              = supplied
+emailAddress            = optional
+
+[ req ]
+default_bits        = 2048
+prompt              = no
+default_md          = sha256
+distinguished_name  = req_distinguished_name
+req_extensions      = v3_req
+
+[ v3_req ]
+# Extensions to add to a certificate request
+basicConstraints = CA:FALSE
+keyUsage = digitalSignature, keyEncipherment
+subjectAltName = @alt_names
+extendedKeyUsage = serverAuth, clientAuth
+
+[ v3_ca ]
+# Extensions for a typical CA
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer
+basicConstraints = critical,CA:true
+keyUsage = cRLSign, keyCertSign
+
+[ alt_names ]
+IP.1 = 10.97.30.1
+IP.2 = 10.10.10.1
+IP.3 = 192.168.10.1
+IP.4 = 192.168.5.99
